@@ -30,7 +30,6 @@
         {
             this.lbName = new System.Windows.Forms.Label();
             this.tbName = new System.Windows.Forms.TextBox();
-            this.tbDate = new System.Windows.Forms.TextBox();
             this.lbDate = new System.Windows.Forms.Label();
             this.lbGender = new System.Windows.Forms.Label();
             this.rbtnGenderMale = new System.Windows.Forms.RadioButton();
@@ -42,6 +41,7 @@
             this.btnAdd = new System.Windows.Forms.Button();
             this.btnLoad = new System.Windows.Forms.Button();
             this.btnSave = new System.Windows.Forms.Button();
+            this.tbDate = new System.Windows.Forms.TextBox();
             this.SuspendLayout();
             // 
             // lbName
@@ -59,13 +59,6 @@
             this.tbName.Name = "tbName";
             this.tbName.Size = new System.Drawing.Size(153, 22);
             this.tbName.TabIndex = 1;
-            // 
-            // tbDate
-            // 
-            this.tbDate.Location = new System.Drawing.Point(105, 41);
-            this.tbDate.Name = "tbDate";
-            this.tbDate.Size = new System.Drawing.Size(100, 22);
-            this.tbDate.TabIndex = 3;
             // 
             // lbDate
             // 
@@ -88,12 +81,13 @@
             // rbtnGenderMale
             // 
             this.rbtnGenderMale.AutoSize = true;
+            this.rbtnGenderMale.Checked = true;
             this.rbtnGenderMale.Location = new System.Drawing.Point(56, 67);
             this.rbtnGenderMale.Name = "rbtnGenderMale";
-            this.rbtnGenderMale.Size = new System.Drawing.Size(61, 21);
+            this.rbtnGenderMale.Size = new System.Drawing.Size(57, 21);
             this.rbtnGenderMale.TabIndex = 5;
             this.rbtnGenderMale.TabStop = true;
-            this.rbtnGenderMale.Text = "Féfrfi";
+            this.rbtnGenderMale.Text = "Férfi";
             this.rbtnGenderMale.UseVisualStyleBackColor = true;
             // 
             // rbtnGenerFemale
@@ -103,7 +97,6 @@
             this.rbtnGenerFemale.Name = "rbtnGenerFemale";
             this.rbtnGenerFemale.Size = new System.Drawing.Size(47, 21);
             this.rbtnGenerFemale.TabIndex = 6;
-            this.rbtnGenerFemale.TabStop = true;
             this.rbtnGenerFemale.Text = "Nő";
             this.rbtnGenerFemale.UseVisualStyleBackColor = true;
             // 
@@ -168,6 +161,16 @@
             this.btnSave.TabIndex = 13;
             this.btnSave.Text = "Mentés";
             this.btnSave.UseVisualStyleBackColor = true;
+            this.btnSave.Click += new System.EventHandler(this.btnSave_Click);
+            // 
+            // tbDate
+            // 
+            this.tbDate.Location = new System.Drawing.Point(105, 41);
+            this.tbDate.Name = "tbDate";
+            this.tbDate.Size = new System.Drawing.Size(100, 22);
+            this.tbDate.TabIndex = 3;
+            this.tbDate.Tag = "";
+            this.tbDate.Text = "éééé-hh-nn";
             // 
             // Form1
             // 
@@ -199,7 +202,6 @@
 
         private System.Windows.Forms.Label lbName;
         private System.Windows.Forms.TextBox tbName;
-        private System.Windows.Forms.TextBox tbDate;
         private System.Windows.Forms.Label lbDate;
         private System.Windows.Forms.Label lbGender;
         private System.Windows.Forms.RadioButton rbtnGenderMale;
@@ -211,6 +213,7 @@
         private System.Windows.Forms.Button btnAdd;
         private System.Windows.Forms.Button btnLoad;
         private System.Windows.Forms.Button btnSave;
+        private System.Windows.Forms.TextBox tbDate;
     }
 }
 
