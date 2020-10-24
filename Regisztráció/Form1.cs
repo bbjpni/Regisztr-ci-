@@ -77,7 +77,7 @@ namespace Regisztráció
                 {
                     StreamReader sr = new StreamReader(opener.FileName);
                     string[] adatok = sr.ReadLine().Split(';');
-                    tbName.Text = adatok[0]; dtpDate.Value = Change(adatok[1]); if (adatok[2] != "Férfi") { rbtnGenerFemale.Checked = true; } else { rbtnGenerMale.Checked = true;  }
+                    tbName.Text = adatok[0]; dtpDate.Value = Change(adatok[1]); if (adatok[2] != "Férfi") { rbtnGenderFemale.Checked = true; } else { rbtnGenderMale.Checked = true;  }
                     lboxHobby.Items.Clear();
                     while (!sr.EndOfStream)
                     {

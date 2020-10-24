@@ -33,7 +33,7 @@
             this.lbDate = new System.Windows.Forms.Label();
             this.lbGender = new System.Windows.Forms.Label();
             this.rbtnGenderMale = new System.Windows.Forms.RadioButton();
-            this.rbtnGenerFemale = new System.Windows.Forms.RadioButton();
+            this.rbtnGenderFemale = new System.Windows.Forms.RadioButton();
             this.lboxHobby = new System.Windows.Forms.ListBox();
             this.lbHobby = new System.Windows.Forms.Label();
             this.lbNewHobby = new System.Windows.Forms.Label();
@@ -90,15 +90,15 @@
             this.rbtnGenderMale.Text = "Férfi";
             this.rbtnGenderMale.UseVisualStyleBackColor = true;
             // 
-            // rbtnGenerFemale
+            // rbtnGenderFemale
             // 
-            this.rbtnGenerFemale.AutoSize = true;
-            this.rbtnGenerFemale.Location = new System.Drawing.Point(125, 90);
-            this.rbtnGenerFemale.Name = "rbtnGenerFemale";
-            this.rbtnGenerFemale.Size = new System.Drawing.Size(47, 21);
-            this.rbtnGenerFemale.TabIndex = 6;
-            this.rbtnGenerFemale.Text = "Nő";
-            this.rbtnGenerFemale.UseVisualStyleBackColor = true;
+            this.rbtnGenderFemale.AutoSize = true;
+            this.rbtnGenderFemale.Location = new System.Drawing.Point(125, 90);
+            this.rbtnGenderFemale.Name = "rbtnGenderFemale";
+            this.rbtnGenderFemale.Size = new System.Drawing.Size(47, 21);
+            this.rbtnGenderFemale.TabIndex = 6;
+            this.rbtnGenderFemale.Text = "Nő";
+            this.rbtnGenderFemale.UseVisualStyleBackColor = true;
             // 
             // lboxHobby
             // 
@@ -184,7 +184,7 @@
             this.Controls.Add(this.lbNewHobby);
             this.Controls.Add(this.lbHobby);
             this.Controls.Add(this.lboxHobby);
-            this.Controls.Add(this.rbtnGenerFemale);
+            this.Controls.Add(this.rbtnGenderFemale);
             this.Controls.Add(this.rbtnGenderMale);
             this.Controls.Add(this.lbGender);
             this.Controls.Add(this.lbDate);
@@ -204,7 +204,7 @@
         private System.Windows.Forms.Label lbDate;
         private System.Windows.Forms.Label lbGender;
         private System.Windows.Forms.RadioButton rbtnGenderMale;
-        private System.Windows.Forms.RadioButton rbtnGenerFemale;
+        private System.Windows.Forms.RadioButton rbtnGenderFemale;
         private System.Windows.Forms.ListBox lboxHobby;
         private System.Windows.Forms.Label lbHobby;
         private System.Windows.Forms.Label lbNewHobby;
