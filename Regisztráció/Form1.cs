@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -24,9 +25,8 @@ namespace Regisztráció
         {
             string hobby = Changer(tbHobby.Text);
             if (!lboxHobby.Items.Contains(hobby) && !(hobby.Trim().Equals("")))
-            {
-                lboxHobby.Items.Add(hobby);
-            }
+            { lboxHobby.Items.Add(hobby); }
+            else { MessageBox.Show("A hobbi már létezik, nem veheti fel ismételten", "HIBA"); }
         }
 
         private string Changer(string word)
@@ -41,51 +41,78 @@ namespace Regisztráció
 
         private void btnSave_Click(object sender, EventArgs e)
         {
-            bool date = CheckingDate();
-            bool name = !tbName.Text.Trim().Equals("");
-            if (!(date && name))
+            bool name = !tbName.Text.Trim().Equals("") && !tbName.Text.Contains(';');
+            if (!name)
             {
-                MessageBox.Show("Nem helyes a beviteli adatok", "HIBA");
+                MessageBox.Show("A név nem tartlmazhat pontos vesszőt", "HIBA");
+            }
+            else
+            {
+                SaveFileDialog saver = new SaveFileDialog();
+                saver.Filter = "Szöveges fájl|*.txt";
+                saver.Title = "Válasszon ki egy helyet";
+                saver.FileName = tbName.Text + ".txt";
+                if (saver.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+                {
+                    StreamWriter sw = new StreamWriter(saver.FileName);
+                    string datum = dtpDate.Value.Year + "-" + dtpDate.Value.Month + "-" + dtpDate.Value.Day;
+                    sw.WriteLine(tbName.Text+";"+datum+";"+(rbtnGenderMale.Checked ? "Férfi": "Nő"));
+                    for (int i = 0; i < lboxHobby.Items.Count; i++)
+                    {
+                        sw.WriteLine(lboxHobby.Items[i]);
+                    }
+                    sw.Close();
+                }
             }
         }
 
-        private bool CheckingDate() {
-            string[] datum = tbDate.Text.Split('-');
-            bool back = datum.Length == 3;
-            if (back)
+        private void btnLoad_Click(object sender, EventArgs e)
+        {
+            OpenFileDialog opener = new OpenFileDialog();
+            opener.Filter = "Szöveges fájl|*.txt";
+            opener.Title = "Válasszon ki egy fájlt";
+            if (opener.ShowDialog() == System.Windows.Forms.DialogResult.OK)
             {
-                if (int.TryParse(datum[0], out int year))
-                { back = year > 0 && year >= DateTime.Now.Year-300; }
-                if (back && int.TryParse(datum[1], out int month))
-                { back = month < 13 || month > 0; }
-                if (back && int.TryParse(datum[2], out int day))
+                try
                 {
-                    switch (Convert.ToInt32(datum[1]))
+                    StreamReader sr = new StreamReader(opener.FileName);
+                    string[] adatok = sr.ReadLine().Split(';');
+                    tbName.Text = adatok[0]; dtpDate.Value = Change(adatok[1]); if (adatok[2] != "Férfi"){ rbtnGenerFemale.Checked = true; }
+                    lboxHobby.Items.Clear();
+                    while (!sr.EndOfStream)
                     {
-                        case 1:
-                        case 3:
-                        case 5:
-                        case 7:
-                        case 8:
-                        case 10:
-                        case 12:
-                            back = !(day > 0 && day < 32);
-                            break;
-                        case 2:
-                            back = !(day > 0 && day < 29);
-                            break;
-                        case 4:
-                        case 6:
-                        case 9:
-                        case 11:
-                            back = !(day > 0 && day < 31);
-                            break;
+                        lboxHobby.Items.Add(Changer(sr.ReadLine()));
                     }
-                    back = !back;
+                    sr.Close();
+                }
+                catch (NullReferenceException)
+                {
+
+                    MessageBox.Show("A szükséges adatok nem találhatóak","Hiba történt");
+                    this.Close();
+                }
+                catch (FileNotFoundException)
+                {
+                    MessageBox.Show("A fájl nem található","Hiba történt");
+                    this.Close();
+                }
+                catch (IOException)
+                {
+                    MessageBox.Show("A fájl beolvasása hibás", "Hiba történt");
+                    this.Close();
+                }
+                catch (Exception)
+                {
+                    MessageBox.Show("Általános hiba", "Hiba történt");
+                    this.Close();
                 }
             }
-            if (!back) { tbDate.Text = "éééé-hh-nn"; }
-            return back;
+        }
+
+        private DateTime Change(string line)
+        {
+            string[] all = line.Split('-');
+            return new DateTime(Convert.ToInt32(all[0]), Convert.ToInt32(all[1]), Convert.ToInt32(all[2]));
         }
     }
 }
