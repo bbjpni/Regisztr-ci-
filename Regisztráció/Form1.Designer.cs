@@ -108,15 +108,16 @@
             this.lboxHobby.Name = "lboxHobby";
             this.lboxHobby.Size = new System.Drawing.Size(190, 260);
             this.lboxHobby.TabIndex = 7;
+            this.lboxHobby.Click += new System.EventHandler(this.lboxHobby_Click);
             // 
             // lbHobby
             // 
             this.lbHobby.AutoSize = true;
             this.lbHobby.Location = new System.Drawing.Point(250, 9);
             this.lbHobby.Name = "lbHobby";
-            this.lbHobby.Size = new System.Drawing.Size(102, 17);
+            this.lbHobby.Size = new System.Drawing.Size(106, 17);
             this.lbHobby.TabIndex = 8;
-            this.lbHobby.Text = "Kedvenc hobbi";
+            this.lbHobby.Text = "Kedvenc hobbi:";
             // 
             // lbNewHobby
             // 

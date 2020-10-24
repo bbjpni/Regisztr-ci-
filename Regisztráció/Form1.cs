@@ -21,6 +21,7 @@ namespace Regisztráció
             lboxHobby.Items.Add("Futás");
         }
 
+        private string kedvenc = "";
         private void btnAdd_Click(object sender, EventArgs e)
         {
             string hobby = Changer(tbHobby.Text);
@@ -46,6 +47,10 @@ namespace Regisztráció
             {
                 MessageBox.Show("A név nem tartlmazhat pontos vesszőt", "HIBA");
             }
+            else if (kedvenc == "")
+            {
+                MessageBox.Show("Nincs kiválasztva kedvenc hobbi!", "HIBA");
+            }
             else
             {
                 SaveFileDialog saver = new SaveFileDialog();
@@ -59,7 +64,8 @@ namespace Regisztráció
                     sw.WriteLine(tbName.Text+";"+datum+";"+(rbtnGenderMale.Checked ? "Férfi": "Nő"));
                     for (int i = 0; i < lboxHobby.Items.Count; i++)
                     {
-                        sw.WriteLine(lboxHobby.Items[i]);
+                        string line = lboxHobby.Items[i].ToString();
+                        sw.WriteLine(line == kedvenc ? line.ToUpper() : line);
                     }
                     sw.Close();
                 }
@@ -68,6 +74,8 @@ namespace Regisztráció
 
         private void btnLoad_Click(object sender, EventArgs e)
         {
+            kedvenc = "";
+            tbHobby.Text = "";
             OpenFileDialog opener = new OpenFileDialog();
             opener.Filter = "Szöveges fájl|*.txt";
             opener.Title = "Válasszon ki egy fájlt";
@@ -81,9 +89,15 @@ namespace Regisztráció
                     lboxHobby.Items.Clear();
                     while (!sr.EndOfStream)
                     {
-                        lboxHobby.Items.Add(Changer(sr.ReadLine()));
+                        string line = sr.ReadLine();
+                        lboxHobby.Items.Add(Changer(line));
+                        if (line.ToUpper() == line)
+                        {
+                            kedvenc = (Changer(line));
+                        }
                     }
                     sr.Close();
+                    lbHobby.Text = "Kedvenc hobbi: " + kedvenc;
                 }
                 catch (NullReferenceException)
                 {
@@ -113,6 +127,15 @@ namespace Regisztráció
         {
             string[] all = line.Split('-');
             return new DateTime(Convert.ToInt32(all[0]), Convert.ToInt32(all[1]), Convert.ToInt32(all[2]));
+        }
+
+        private void lboxHobby_Click(object sender, EventArgs e)
+        {
+            if (lboxHobby.SelectedIndex>-1)
+            {
+                kedvenc = lboxHobby.Items[lboxHobby.SelectedIndex].ToString();
+                lbHobby.Text = "Kedvenc hobbi: " + kedvenc;
+            }
         }
     }
 }
